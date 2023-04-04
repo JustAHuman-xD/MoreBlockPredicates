@@ -14,6 +14,6 @@ public class Custom extends BlockModelPredicate {
     }
 
     public static Custom parse(JsonElement arg) {
-        //return new Custom(new Identifier(arg.getAsString()));
+        return new Custom();
     }
 }
