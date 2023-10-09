@@ -11,7 +11,8 @@ public final class DataHelper {
     public static NumberRange.IntRange parseIntRange(JsonElement arg) {
         JsonObject object = arg.getAsJsonObject();
 
-        boolean hasMin = object.has("min"), hasMax = object.has("max");
+        boolean hasMin = object.has("min");
+        boolean hasMax = object.has("max");
         if (hasMin && hasMax) {
             return NumberRange.IntRange.between(object.get("min").getAsInt(), object.get("max").getAsInt());
         } else if (hasMin) {

@@ -7,7 +7,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
-import net.minecraft.client.render.block.entity.PistonBlockEntityRenderer;
 import net.minecraft.client.render.entity.FallingBlockEntityRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
@@ -35,8 +34,8 @@ public class FallingBlockEntityRendererMixin {
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/block/BlockRenderManager;getModel(Lnet/minecraft/block/BlockState;)Lnet/minecraft/client/render/model/BakedModel;"),method = "render(Lnet/minecraft/entity/FallingBlockEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
     public BakedModel render(BlockRenderManager instance, BlockState state) {
         Optional<Identifier> identifier = MBPData.meetsPredicate(fallingBlockEntity.getWorld(), fallingBlockEntity.getBlockPos(), state, ContextIdentifiers.FALLING_BLOCK);
-
         MinecraftClient client = MinecraftClient.getInstance();
+
         if (identifier.isPresent()) {
             BakedModelManagerAccess access = BakedModelManagerAccess.of(client.getBakedModelManager());
             return access.reallyGetModel(identifier.get());

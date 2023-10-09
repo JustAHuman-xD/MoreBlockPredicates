@@ -1,8 +1,6 @@
 package mod.omoflop.mbp.mixin;
 
-import mod.omoflop.mbp.MBPData;
 import mod.omoflop.mbp.accessor.BlockRenderManagerAccess;
-import mod.omoflop.mbp.client.MBPClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.DisplayEntityRenderer;

@@ -48,7 +48,9 @@ public abstract class ItemRendererMixin {
 
     @Redirect(method = "getModel", at = @At(value = "INVOKE",target = "Lnet/minecraft/client/render/item/ItemModels;getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;"))
     private BakedModel getHeldItemModelMixin(ItemModels itemModels, ItemStack stack) {
-        if (world == null || entity == null) return itemModels.getModel(stack);
+        if (world == null || entity == null) {
+            return itemModels.getModel(stack);
+        }
 
         BlockPos targetPos = entity.getBlockPos();
         if (entity instanceof PlayerEntity player) {
@@ -59,7 +61,6 @@ public abstract class ItemRendererMixin {
         }
 
         Optional<Identifier> identifier = MBPData.meetsPredicate(world, targetPos, Block.getBlockFromItem(stack.getItem()).getDefaultState(), ContextIdentifiers.ITEM_HELD);
-
         if (identifier.isPresent()) {
             BakedModelManagerAccess access = BakedModelManagerAccess.of(itemModels.getModelManager());
             return access.reallyGetModel(identifier.get());
@@ -79,9 +80,17 @@ public abstract class ItemRendererMixin {
             )
     )
     private void renderBakedModelMixin(ItemRenderer instance, BakedModel model, ItemStack stack, int light, int overlay, MatrixStack matrices, VertexConsumer vertices) {
-        if (world == null) world = MinecraftClient.getInstance().world;
-        if (entity == null) entity = MBPClient.currentEntity;
-        if (entity == null) entity = MinecraftClient.getInstance().player;
+        if (world == null) {
+            world = MinecraftClient.getInstance().world;
+        }
+
+        if (entity == null) {
+            entity = MBPClient.currentEntity;
+        }
+
+        if (entity == null) {
+            entity = MinecraftClient.getInstance().player;
+        }
 
         if (entity != null) {
             BlockPos targetPos = entity.getBlockPos();
@@ -97,6 +106,7 @@ public abstract class ItemRendererMixin {
                 BakedModelManagerAccess access = BakedModelManagerAccess.of(models.getModelManager());
                 model = access.reallyGetModel(identifier.get());
             }
+
             MBPClient.currentEntity = null;
         }
 

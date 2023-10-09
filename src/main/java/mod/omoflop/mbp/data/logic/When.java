@@ -5,17 +5,13 @@ import com.google.gson.JsonObject;
 import mod.omoflop.mbp.data.BlockModelPredicate;
 import mod.omoflop.mbp.data.WorldViewCondition;
 import net.minecraft.block.BlockState;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
 
 public class When implements WorldViewCondition {
 

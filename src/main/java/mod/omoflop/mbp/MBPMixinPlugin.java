@@ -2,31 +2,24 @@ package mod.omoflop.mbp;
 
 import mod.omoflop.mbp.client.MBPClient;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.impl.util.log.Log;
-import net.fabricmc.loader.impl.util.log.LogCategory;
-import net.fabricmc.loader.impl.util.log.LogLevel;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
 
 public class MBPMixinPlugin implements IMixinConfigPlugin {
-    public static boolean HAS_SODIUM = false;
-    public static boolean HAS_WORLDMESHER = false;
+    private static boolean hasSodium = false;
 
     @Override
     public void onLoad(String mixinPackage) {
-        HAS_SODIUM = FabricLoader.getInstance().isModLoaded("sodium");
-        HAS_WORLDMESHER = FabricLoader.getInstance().isModLoaded("worldmesher");
+        hasSodium = FabricLoader.getInstance().isModLoaded("sodium");
         StringBuilder builder = new StringBuilder();
-        if (HAS_SODIUM) {
+        if (hasSodium) {
             builder.append("sodium, ");
         }
-        if (HAS_WORLDMESHER) {
+        if (FabricLoader.getInstance().isModLoaded("worldmesher")) {
             builder.append("worldmesher, ");
         }
         String str = "Starting MBP";
@@ -43,18 +36,15 @@ public class MBPMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (mixinClassName.equals("compat.sodium.ChunkBuilderMeshingTaskMixin"))
-            return HAS_SODIUM;
-        //if (mixinClassName.equals("BlockRenderManagerMixin"))
-        //    return !HAS_SODIUM;
-        //if (mixinClassName.equals("WorldMeshMixin"))
-            //return HAS_WORLDMESHER;
+        if (mixinClassName.equals("compat.sodium.ChunkBuilderMeshingTaskMixin")) {
+            return hasSodium;
+        }
         return true;
     }
 
     @Override
     public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
-
+        // No need for anything here
     }
 
     @Override
@@ -64,11 +54,11 @@ public class MBPMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-
+        // No need for anything here
     }
 
     @Override
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-
+        // No need for anything here
     }
 }

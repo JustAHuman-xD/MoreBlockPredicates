@@ -9,8 +9,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.argument.BlockArgumentParser;
 import net.minecraft.command.argument.BlockPredicateArgumentType;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
@@ -19,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 public class IsBlockState extends BlockModelPredicate {
 
     final @Nullable BlockPredicateImpl blockStatePredicate;
+
     public IsBlockState(@Nullable BlockPredicateImpl blockStatePredicate) {
         this.blockStatePredicate = blockStatePredicate;
     }

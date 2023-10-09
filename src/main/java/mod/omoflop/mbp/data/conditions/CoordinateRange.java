@@ -28,7 +28,6 @@ public class CoordinateRange extends BlockModelPredicate {
 
     public static CoordinateRange parse(JsonElement arg) {
         JsonObject object = arg.getAsJsonObject();
-
         Direction.Axis axis = Direction.Axis.fromName(object.get("axis").getAsString());
         return new CoordinateRange(DataHelper.parseIntRange(arg), axis);
     }

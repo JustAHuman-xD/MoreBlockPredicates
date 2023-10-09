@@ -37,8 +37,8 @@ public class PistonBlockEntityRendererMixin {
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/block/BlockRenderManager;getModel(Lnet/minecraft/block/BlockState;)Lnet/minecraft/client/render/model/BakedModel;"), method = "renderModel")
     public BakedModel renderModel(BlockRenderManager instance, BlockState state) {
         Optional<Identifier> identifier = MBPData.meetsPredicate(tempWorld, tempBlockPos, state, ContextIdentifiers.PISTON_PUSHING);
-
         MinecraftClient client = MinecraftClient.getInstance();
+        
         if (identifier.isPresent()) {
             BakedModelManagerAccess access = BakedModelManagerAccess.of(client.getBakedModelManager());
             return access.reallyGetModel(identifier.get());

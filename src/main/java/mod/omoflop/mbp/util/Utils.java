@@ -16,10 +16,8 @@ public class Utils {
 
     private static DynamicRegistryManager getRegistryManager() {
         MinecraftClient instance =MinecraftClient.getInstance();
-        if (instance != null) {
-            if (instance.world != null) {
-                return instance.world.getRegistryManager();
-            }
+        if (instance != null && instance.world != null) {
+            return instance.world.getRegistryManager();
         }
         return null;
     }
@@ -41,10 +39,12 @@ public class Utils {
         }
         return Optional.empty();
     }
+
     public static Optional<Identifier> getBiome(Biome biome) {
         Optional<Registry<Biome>> registry = BIOME_REGISTRY.get();
         return registry.map(biomes -> biomes.getId(biome));
     }
+
     public static Optional<Block> getBlock(Identifier blockId) {
         return Registries.BLOCK.getOrEmpty(blockId);
     }

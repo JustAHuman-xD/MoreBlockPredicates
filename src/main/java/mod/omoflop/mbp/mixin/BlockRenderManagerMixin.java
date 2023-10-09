@@ -3,7 +3,6 @@ package mod.omoflop.mbp.mixin;
 import mod.omoflop.mbp.MBPData;
 import mod.omoflop.mbp.accessor.BakedModelManagerAccess;
 import mod.omoflop.mbp.accessor.BlockRenderManagerAccess;
-import mod.omoflop.mbp.client.MBPClient;
 import mod.omoflop.mbp.common.BlockRendering;
 import mod.omoflop.mbp.common.ContextIdentifiers;
 import net.minecraft.block.BlockRenderType;
@@ -18,10 +17,8 @@ import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.client.render.block.BlockModels;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -63,13 +60,15 @@ public class BlockRenderManagerMixin implements BlockRenderManagerAccess {
             BlockPos pos = figura$contextEntity == null ? BlockPos.ORIGIN : figura$contextEntity.getBlockPos();
             figura$contextEntity = null;
             Optional<Identifier> id = MBPData.meetsPredicate(MinecraftClient.getInstance().world, pos, state, ContextIdentifiers.ENTITY);
-            if (id.isEmpty()) return;
+            if (id.isEmpty()) {
+                return;
+            }
 
             BakedModel bakedModel = ((BakedModelManagerAccess) this.models.getModelManager()).reallyGetModel(id.get());
             int i = this.blockColors.getColor(state, null, null, 0);
-            float f = (float) (i >> 16 & 0xFF) / 255.0F;
-            float g = (float) (i >> 8 & 0xFF) / 255.0F;
-            float h = (float) (i & 0xFF) / 255.0F;
+            float f = (i >> 16 & 0xFF) / 255.0F;
+            float g = (i >> 8 & 0xFF) / 255.0F;
+            float h = (i & 0xFF) / 255.0F;
             this.blockModelRenderer
                     .render(
                             matrices.peek(),

@@ -28,8 +28,8 @@ public abstract class BlockMarkerParticleMixin extends SpriteBillboardParticle {
     @Inject(at = @At(value = "TAIL"), method = "<init>")
     public void init(ClientWorld world, double x, double y, double z, BlockState state, CallbackInfo ci) {
         Optional<Identifier> identifier = MBPData.meetsPredicate(world, new BlockPos((int)x, (int)y, (int)z), state, ContextIdentifiers.MARKER_PARTICLE);
-
         MinecraftClient client = MinecraftClient.getInstance();
+
         if (identifier.isPresent()) {
             BakedModelManagerAccess access = BakedModelManagerAccess.of(client.getBakedModelManager());
             setSprite(access.reallyGetModel(identifier.get()).getParticleSprite());

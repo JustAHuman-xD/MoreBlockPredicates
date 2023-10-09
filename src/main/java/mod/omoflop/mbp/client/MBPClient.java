@@ -19,6 +19,5 @@ public class MBPClient implements ClientModInitializer {
     public void onInitializeClient() {
         ModelLoadingPluginManager.registerPlugin(new MBPModelLoadingPlugin.ModelIdLoader(), new MBPModelLoadingPlugin());
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new MBPReloadListener());
-
     }
 }
